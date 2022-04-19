@@ -8,47 +8,92 @@ namespace PM03_Menchikova
 {
     class Program
     {
-        void BubbleSort(int *arr, int N){
-           for (int i = 0; i < N; i++)
-              for (int j = i + 1; j < N; j++){
-                 if (arr[j] < arr[i]){
-                     int tmp = arr[i];
-                     arr[i] = arr[j];
-                     arr[j] = tmp;
-                 }
-              }
-        }
         static void Main(string[] args)
         {
-            Courses f1 = new Courses();
+            Course f1 = new Course();
             int n;
+            Console.WriteLine("Введите количество блюд: ");
             n = int.Parse(Console.ReadLine());
             //создается массив с объектами класса Course
             f1.myArr = new Course[n];
             Console.WriteLine(f1.n);
+            int[] x = new int[n];
+ 
+            int add(string n, int t, double p, int s) {
+		    Courses* current, * previous, * tmp;
+		    previous = NULL;
+		    if (first) {
+			current = first;
+			do {
+				if (current->price > p) {
+					tmp = new Courses;
+					tmp->name = n;
+					tmp->price = p;
+					tmp->time = t;
+					tmp->next = current;
+					if (previous)
+						previous->next = tmp;
+					else
+						first = tmp;
+					break;
+				}
+				if (current->price == p)
+					return 0;
+				previous = current;
+				current = current->next;
+			} while (current);
+			if (!current) {
+				previous->next = new Tour;
+				previous->next->name = n;
+				previous->next->price = p;
+				previous->next->time = t;
+				previous->next->next = NULL;
+			}
+		}
+		else {
+			Courses* c = new Courses;
+			c->name = n;
+			c->price = p;
+			c->time = t;
+			c->next = NULL;
+			first = c;
+		}
+		return 1;
+	}
+
+            for (int i = 0; i < n; i++)
+            {
+                Console.WriteLine("Введите название блюда: ",name, "Введите цену: ",price,"Введите время приготовления в минутах (от 1 до 60): ",time);
+                x[i] = Convert.ToInt32(Console.ReadLine());
+                
+            }  
+    Console.ReadLine();
+        
+
+            
         }
-        int main () 
+string path = @"D:\Users\stu-pksp118\source\repos\Ekz_PM03_Menchikova\file.txt";   // путь к файлу
+ 
+// запись в файл
+using (FileStream fstream = new FileStream(path, FileMode.OpenOrCreate))
 {
-    setlocale(0, "");
-    int number;
-    int *p_darr;
-    ofstream fp("number.txt"); 
-    cout << "Программа запишет целые числа в текстовый документ\n";
-    cout << "Для выхода из программы вместо числа напишите 0\n";
-    cout << "Введите целое число: ";
-    cin >> number;
-    p_darr = new int[number];
-    for (int i = 0; i < number; i++) {
-        cin >> p_darr[i];
-    }
-    BubbleSort(p_darr, number);   
-    for(int i = 0; i < number; ++i){
-       fp << p_darr[i] << ' ';
-    }
-    fp.close();
-    delete [] p_darr;
-    cout << "\033[1;31mКоманда для завершения работы принята.\033[0m\n";
-    cout << "\033[1;31mРезультат записан в number.txt.\033[0m\n";
+    // преобразуем строку в байты
+    byte[] buffer = Encoding.Default.GetBytes(text);
+    // запись массива байтов в файл
+    await fstream.WriteAsync(buffer, 0, buffer.Length);
+    Console.WriteLine("Текст записан в файл");
+}
+ 
+// чтение из файла
+using (FileStream fstream = File.OpenRead(path))
+{
+    // выделяем массив для считывания данных из файла
+    byte[] buffer = new byte[fstream.Length];
+    // считываем данные
+    await fstream.ReadAsync(buffer, 0, buffer.Length);
+    // декодируем байты в строку
+    string textFromFile = Encoding.Default.GetString(buffer);
+    Console.WriteLine($"Текст из файла: {textFromFile}");
 }
     }
 }
