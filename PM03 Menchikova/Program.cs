@@ -36,13 +36,13 @@ namespace PM03_Menchikova
             
         }
 
-		for (int j = i + 1; j < nums.Length; j++)
+		for (int j = i + 1; j < n; j++)
         {
            if (myArr[i].price > myArr[j].price && myArr[i].time > myArr[j].time)
            {
-              temp = nums[i];
-              nums[i] = nums[j];
-              nums[j] = temp;
+              temp = price[i]+time[i];
+              price[i]+time[i] = price[j]+time[j];
+              price[j]+time[j] = temp;
            }
         }
 
